@@ -16,7 +16,7 @@ namespace AgenciaDeCambioPOO.Entidades
         }
         public PesoArgentino(Moneda moneda,string nombre,string abreviatura, decimal cantidad):base(nombre,abreviatura,moneda.Cantidad)
         {
-            ObtenerValorEnPesos(moneda);
+
         }
         
 
@@ -25,7 +25,7 @@ namespace AgenciaDeCambioPOO.Entidades
             return base.MostrarDatos() + $"- No tiene cotizaciones!! -";
         }
 
-        public override decimal ObtenerValorEnPesos(Moneda moneda)
+        public override decimal ObtenerValorEnPesos()
         {
             return Cantidad  ;
         }

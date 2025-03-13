@@ -19,11 +19,11 @@ namespace AgenciaDeCambioPOO.Entidades
 
         public Divisa(Moneda moneda,string nombre,string abreviatura,  decimal cantidad, decimal cotizacionCompra,decimal cotizacionVenta):base(nombre,abreviatura,moneda.Cantidad)
         {
-            ObtenerValorEnPesos(moneda);
+           
             CotizacionCompra = cotizacionCompra;
             CotizacionVenta = cotizacionVenta;
         }
-        public  override decimal ObtenerValorEnPesos(Moneda moneda)
+        public  override decimal ObtenerValorEnPesos()
         {
             return CotizacionCompra * Cantidad;
         }

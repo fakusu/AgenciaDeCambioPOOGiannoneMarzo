@@ -9,11 +9,16 @@ namespace AgenciaDeCambioPOO.Datos
 {
     public class AgenciaDeCambio
     {
-        private readonly RepositorioMonedas _repositorioMonedas;
+        private readonly RepositorioMonedas _repositorio;
 
-        public List<Moneda> ObtenerMonedas()
+        public AgenciaDeCambio(RepositorioMonedas repositorio)
         {
-            return _repositorioMonedas.ObtenerTodas();
+            _repositorio = repositorio;
+        }
+
+        public List<Moneda> ObtenerTodas()
+        {
+            return _repositorio.ObtenerTodas();
         }
 
 

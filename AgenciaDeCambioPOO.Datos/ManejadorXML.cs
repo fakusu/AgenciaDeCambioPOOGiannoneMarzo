@@ -10,25 +10,28 @@ namespace AgenciaDeCambioPOO.Datos
 {
     public class ManejadorXML : IArchivo<Moneda>
     {
-        public void GuardarDatos(string ruta, List<Moneda> datos)
-        {
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Moneda>));
-            using (StreamWriter escritor = new StreamWriter(ruta))
-            {
-                xmlSerializer.Serialize(escritor, datos);
-            }
-        }
+        private static readonly Type[] TiposMonedas = { typeof(Divisa), typeof(PesoArgentino) };
 
         public List<Moneda> LeerDatos(string ruta)
         {
-            if (!File.Exists(ruta)) return new List<Moneda> { };
-            XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Moneda>));
-            using (StreamReader lector = new StreamReader(ruta))
+            if (!File.Exists(ruta)) return new List<Moneda>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Moneda>), TiposMonedas);
+            using (StreamReader reader = new StreamReader(ruta))
             {
-                return (List<Moneda>)xmlSerializer.Deserialize(lector)!;
+                return (List<Moneda>)serializer.Deserialize(reader);
             }
         }
 
-       
+        public void GuardarDatos(string ruta, List<Moneda> datos)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Moneda>), TiposMonedas);
+            using (StreamWriter writer = new StreamWriter(ruta))
+            {
+                serializer.Serialize(writer, datos);
+            }
+        }
+
+
     }
 }

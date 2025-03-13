@@ -12,7 +12,7 @@ namespace AgenciaDeCambioPOO.Datos
         private readonly string? _ruta;
         private readonly IArchivo<Moneda>? _manejadorXml;
 
-        private Dictionary<string, Moneda> monedas = new();
+        private Dictionary<string, Moneda> monedas = new Dictionary<string, Moneda>();
 
         public RepositorioMonedas(string ruta, IArchivo<Moneda> manejadorXml)
         {
@@ -25,10 +25,7 @@ namespace AgenciaDeCambioPOO.Datos
         {
             var lista = _manejadorXml.LeerDatos(_ruta);
         }
-        public List<Moneda> ObtenerTodas()
-        {
-            return monedas.Values.ToList();
-        }
+       
         public string ActualizarDivisa(Divisa moneda)
         {
             return $"";
@@ -36,18 +33,7 @@ namespace AgenciaDeCambioPOO.Datos
 
         private void GuardarMonedas (List<Moneda> monedas)
         {
-            var monedaBuscada = BuscarMoneda(monedas.);
-            if (monedaBuscada == null)
-            {
-                monedas.Add(monedas.Abreviatura, monedas);
-            }
-            else
-            {
-                monedaBuscada.CotizacionCompra = monedas.CotizacionCompra;
-                monedaBuscada.CotizacionVenta = monedas.CotizacionVenta;
-                monedaBuscada.Cantidad = monedas.Cantidad;
-            }
-            GuardarDatos();
+            _manejadorXml.GuardarDatos(_ruta, monedas.ToList());
         }
 
         private Moneda BuscarMoneda(string abreviatura )
@@ -60,5 +46,13 @@ namespace AgenciaDeCambioPOO.Datos
         {
             _manejadorXml.GuardarDatos(_ruta, monedas.Values.ToList());
         }
+        public List<Moneda> ObtenerTodas()
+        {
+            return monedas.Values
+                .Where(m => !(m is PesoArgentino))
+                .OrderBy(m => m.Nombre)
+                .ToList();
+        }
+      
     }
 }

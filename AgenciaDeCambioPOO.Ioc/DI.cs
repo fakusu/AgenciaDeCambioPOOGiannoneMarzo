@@ -17,10 +17,11 @@ namespace AgenciaDeCambioPOO.Ioc
             
             services.AddSingleton<IArchivo<Moneda>,ManejadorXML>();
             services.AddSingleton(provider =>
-               new RepositorioMonedas("NuevasDivisas.xml",
-                   provider.GetRequiredService<IArchivo<Moneda>()));
+               new RepositorioMonedas(provider.GetRequiredService < IArchivo < Moneda >() ,"NuevasDivisas.xml"));
 
             return services.BuildServiceProvider();
         }
+
+
     }
 }

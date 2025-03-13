@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace AgenciaDeCambioPOO.Entidades
 {
+    [XmlInclude(typeof(Divisa))]
+    [XmlInclude(typeof(PesoArgentino))]
     public abstract class Moneda
     {
         public string Abreviatura { get; set; }
@@ -33,6 +36,6 @@ namespace AgenciaDeCambioPOO.Entidades
             return sb.ToString();
             
         }
-        public abstract decimal ObtenerValorEnPesos(Moneda moneda);
+        public abstract decimal ObtenerValorEnPesos();
     }
 }
